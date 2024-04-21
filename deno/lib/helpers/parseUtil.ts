@@ -44,6 +44,7 @@ export type ParseParams = {
   path: (string | number)[];
   errorMap: ZodErrorMap;
   async: boolean;
+  params: Record<string, any>;
 };
 
 export type ParsePathComponent = string | number;
@@ -60,6 +61,7 @@ export interface ParseContext {
   readonly schemaErrorMap?: ZodErrorMap;
   readonly parent: ParseContext | null;
   readonly data: any;
+  readonly params: Record<string, any>;
   readonly parsedType: ZodParsedType;
 }
 
