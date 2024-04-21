@@ -43,6 +43,7 @@ import {
 
 export type RefinementCtx = {
   addIssue: (arg: IssueData) => void;
+  params: Record<string, unknown>;
   path: (string | number)[];
 };
 export type ZodRawShape = { [k: string]: ZodTypeAny };
@@ -193,6 +194,7 @@ export abstract class ZodType<
       ctx || {
         common: input.parent.common,
         data: input.data,
+        params: input.parent.params,
 
         parsedType: getParsedType(input.data),
 
@@ -212,6 +214,7 @@ export abstract class ZodType<
       ctx: {
         common: input.parent.common,
         data: input.data,
+        params: input.parent.params,
 
         parsedType: getParsedType(input.data),
 
@@ -255,6 +258,7 @@ export abstract class ZodType<
       schemaErrorMap: this._def.errorMap,
       parent: null,
       data,
+      params: params?.params || {},
       parsedType: getParsedType(data),
     };
     const result = this._parseSync({ data, path: ctx.path, parent: ctx });
@@ -285,6 +289,7 @@ export abstract class ZodType<
       schemaErrorMap: this._def.errorMap,
       parent: null,
       data,
+      params: params?.params || {},
       parsedType: getParsedType(data),
     };
 
@@ -4478,6 +4483,9 @@ export class ZodEffects<
         } else {
           status.dirty();
         }
+      },
+      get params() {
+        return ctx.params;
       },
       get path() {
         return ctx.path;

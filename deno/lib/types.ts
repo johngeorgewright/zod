@@ -43,7 +43,7 @@ import {
 
 export type RefinementCtx = {
   addIssue: (arg: IssueData) => void;
-  params: Record<string, any>;
+  params: Record<string, unknown>;
   path: (string | number)[];
 };
 export type ZodRawShape = { [k: string]: ZodTypeAny };
